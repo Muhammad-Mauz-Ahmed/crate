@@ -1,0 +1,134 @@
+﻿@using SeoTags
+
+@{
+    var organization = new OrganizationInfo
+    {
+        Url = "https://site.com/",
+        Name = "Organization Name",
+        AlternateName = "Organization AlternateName",
+        SocialMediaUrls = new[]
+        {
+            "https://twitter.com/MyTwitterId",
+            "https://www.linkedin.com/company/MyCompanyId/"
+        },
+        Logo = new ImageInfo()
+        {
+            Url = "https://site.com/uploads/logo.jpg",
+            Caption = "Image Caption",
+            InLanguage = "en-US",
+            Width = 400,
+            Height = 400
+        },
+        ContactPoints = new[]
+        {
+            new ContactPointInfo()
+            {
+                Telephone = "+0123456789",
+                ContactType = "sales",
+                AvailableLanguage = new[] { "English" },
+                AreaServed = new[] { "US" }
+            },
+            new ContactPointInfo()
+            {
+                Telephone = "+0123456789",
+                ContactType = "customer service",
+                AvailableLanguage = new[] { "English" },
+                AreaServed = new[] { "US" }
+            }
+        }
+    };
+
+    var website = new WebSiteInfo
+    {
+        Url = "https://site.com/",
+        Name = "WebSite Name",
+        AlternateName = "WebSite AlternateName",
+        Description = "WebSite Description",
+        InLanguage = "en-US",
+        Publisher = organization.Id, //or OrganizationInfo.ReferTo(organization.Id) or OrganizationInfo.ReferTo(organization)
+        SearchAction = new()
+        {
+            Target = "https://site.com/?s={search_term_string}",
+            QueryInput = "required name=search_term_string"
+        }
+    };
+
+    var breadcrumb = new BreadcrumbInfo
+    {
+        Url = "https://site.com/posts/post-url",
+        Items = new[]
+        {
+            ("https://site.com/", "Home"),
+            ("https://site.com/posts/", "Post List"),
+            ("https://site.com/posts/post-url", "Current Post"),
+        }
+    };
+
+    var image = new ImageInfo()
+    {
+        Url = "https://site.com/uploads/image-1.jpg",
+        Caption = "Image Name",
+        InLanguage = "en-US",
+        Width = 1280,
+        Height = 720
+    };
+
+    var author = new PersonInfo
+    {
+        Url = "https://site.com/author",
+        Name = "Author Name",
+        Description = "Author Description",
+        SocialMediaUrls = new[]
+        {
+            "https://twitter.com/AuthorId",
+            "https://www.linkedin.com/company/AuthorId/"
+        },
+        Image = new()
+        {
+            Url = "https://site.com/uploads/author-image.jpg",
+            Caption = "Author Name",
+            InLanguage = "en-US",
+            Width = 400,
+            Height = 400
+        }
+    };
+
+    var webpage = new SeoTags.PageInfo
+    {
+        Url = "https://site.com/url/",
+        Title = "Page Title",
+        Description = "Page Description",
+        Keywords = new[] { "SEO", "AspNetCore", "MVC", "RazorPages" },
+        Images = new[] { ImageInfo.ReferTo(image) },
+        DatePublished = DateTimeOffset.Now,
+        DateModified = DateTimeOffset.Now,
+        InLanguage = "en-US",
+        Author = author.Id, //or PersonInfo.ReferTo(author.Id) or PersonInfo.ReferTo(author)
+        WebSite = website.Id, //or WebSiteInfo.ReferTo(website.Id) or WebSiteInfo.ReferTo(website)
+        Breadcrumb = breadcrumb.Id //or BreadcrumbInfo.ReferTo(breadcrumb.Id) or BreadcrumbInfo.ReferTo(breadcrumb)
+    };
+
+
+    Html.SetSeoInfo(seoInfo =>
+    {
+        seoInfo.JsonLd.AddOrganization(organization)
+        .AddWebsite(website)
+        .AddBreadcrumb(breadcrumb)
+        .AddImage(image)
+        .AddPerson(author)
+        .AddPage(webpage);
+    });
+}
+
+<div>
+    <h1>SeoTags</h1>
+    <p>
+        <a href="https://github.com/mjebrahimi/SeoTags">SeoTags</a> create all SEO tags you need such as meta, link, twitter card (twitter:), open graph (og:), and JSON-LD schema (structred data)..
+    </p>
+    <h1>JSON-LD Sample 2 (Referenced Values)</h1>
+    <p>
+        SeoTags now supports popular JSON-LD types such as <b>Article</b>, <b>Product</b>, <b>Book</b>, <b>Organization</b>, <b>WebSite</b>, <b>WebPage</b>, and etc...
+        <br>
+        This example shows JSOLD-LD in a referenced values usage.
+    </p>
+</div>

@@ -1,0 +1,99 @@
+﻿@using SeoTags
+
+@{
+    var product = new ProductInfo
+    {
+        Url = "https://site.com/product-url/",
+        Name = "Product Name",
+        AlternateName = "Product AlternateName",
+        Description = "Product Description",
+        Category = "Product Category",
+        Identifier = "12345",
+        Brand = new BrandInfo
+        {
+            Name = "Brand Name"
+        },
+        Images = new[]
+        {
+            new ImageInfo()
+            {
+                Url = "https://site.com/uploads/image-1.jpg",
+                Caption = "Image Name",
+                InLanguage = "en-US",
+                Width = 1280,
+                Height = 720
+            },
+            new ImageInfo()
+            {
+                Url = "https://site.com/uploads/image-2.jpg",
+                Caption = "Image Name 2",
+                InLanguage = "en-US",
+                Width = 1280,
+                Height = 720
+            }
+        },
+        AggregateRating = new AggregateRatingInfo()
+        {
+            BestRating = 5.0,
+            WorstRating = 1.0,
+            RatingValue = 4.5,
+            RatingCount = 123,
+        },
+        Reviews = new[]
+        {
+            new ReviewInfo()
+            {
+                BestRating = 5.0,
+                WorstRating = 1.0,
+                RatingValue = 4.5,
+                Description = "Review Description 1",
+                AuthorName = "Review Author 1",
+                AuthorUrl = "https://site.com/author1"
+            },
+            new ReviewInfo()
+            {
+                BestRating = 5.0,
+                WorstRating = 1.0,
+                RatingValue = 5.0,
+                Description = "Review Description 2",
+                AuthorName = "Review Author 2",
+                AuthorUrl = "https://site.com/author2"
+            }
+        },
+        Offers = new[]
+        {
+            new OfferInfo()
+            {
+                Price = 1500,
+                PriceCurrency = "USD",
+                Url = "https://site.com/product-url/",
+                PriceValidUntil = DateTime.Now.AddDays(10)
+            },
+            new OfferInfo()
+            {
+                Price = 1499,
+                PriceCurrency = "USD",
+                Url = "https://site.com/product-url/",
+                PriceValidUntil = DateTime.Now.AddDays(15)
+            }
+        }
+    };
+
+    Html.SetSeoInfo(seoInfo =>
+    {
+        seoInfo.JsonLd.AddProduct(product);
+    });
+}
+
+<div>
+    <h1>SeoTags</h1>
+    <p>
+        <a href="https://github.com/mjebrahimi/SeoTags">SeoTags</a> create all SEO tags you need such as meta, link, twitter card (twitter:), open graph (og:), and JSON-LD schema (structred data)..
+    </p>
+    <h2>JSON-LD Sample 1 (Nested Values)</h2>
+    <p>
+        SeoTags now supports popular JSON-LD types such as <b>Article</b>, <b>Product</b>, <b>Book</b>, <b>Organization</b>, <b>WebSite</b>, <b>WebPage</b>, and etc...
+        <br>
+        This example shows JSOLD-LD in a nested values usage.
+    </p>
+</div>
